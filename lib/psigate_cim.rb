@@ -2,9 +2,9 @@
 #  Psigate = http://www.psigate.com/ The class  is currently set up to use
 #  the psigate test server while rails is in testing or developement mode.
 #  The real server will be used while in production mode.
-#  
+#
 #  Modifications by Sean O'Hara ( sohara at sohara dot com )
-#  
+#
 #  Usage for a create account and immediate charge is as follows:
 #
 # @items = [
@@ -26,7 +26,7 @@ module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     class PsigateCimGateway < Gateway
       TEST_URL = 'https://dev.psigate.com:8645/Messenger/AMMessenger'
-      LIVE_URL = 'https://secure.psigate.com:8645/Messenger/AMMessenger'
+      LIVE_URL = 'https://secure.psigate.com:10921/Messenger/AMMessenger'
 
       self.supported_cardtypes = [:visa, :master, :american_express]
       self.supported_countries = ['CA']
@@ -159,10 +159,10 @@ module ActiveMerchant #:nodoc:
         c_array =[]
         card_array.each do |card|
           if card.class.to_s == "ActiveMerchant::Billing::CreditCard"
-            c_array << { 
-              :CardHolder => [card.first_name, card.last_name].compact.join(' '), 
+            c_array << {
+              :CardHolder => [card.first_name, card.last_name].compact.join(' '),
               :CardNumber => card.number,
-              :CardExpMonth => "%02d" % card.month, 
+              :CardExpMonth => "%02d" % card.month,
               :CardExpYear => card.year.to_s[2..3]
             }
           end
